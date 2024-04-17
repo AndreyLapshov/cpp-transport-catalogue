@@ -2,7 +2,7 @@
 
 #include <iomanip>
 
-void ProcessRequests(std::ostream& out, TransportCatalogue& catalogue) {
+void ProcessRequests( std::ostream& out,TransportCatalogue& catalogue) {
     size_t requests_count;
     std::cin >> requests_count;
     for (size_t i = 0; i < requests_count; ++i) {
@@ -10,7 +10,17 @@ void ProcessRequests(std::ostream& out, TransportCatalogue& catalogue) {
         std::cin >> keyword;
         std::getline(std::cin, line);
         if (keyword == "Bus") {
-            std::string route_number = line.substr(1, line.npos);
+            PrintRoute(line, catalogue, out);
+        }
+        if (keyword == "Stop") {
+            PrinttStop(line, catalogue, out);
+        }
+    }
+}
+
+
+void PrintRoute(std::string& line, TransportCatalogue& catalogue, std::ostream& out) {
+std::string route_number = line.substr(1, line.npos);
             if (catalogue.FindRoute(route_number)) {
                 out << "Bus " << route_number << ": " << catalogue.RouteInformation(route_number).stops_count << " stops on route, "
                     << catalogue.RouteInformation(route_number).unique_stops_count << " unique stops, " << std::setprecision(6)
@@ -19,8 +29,9 @@ void ProcessRequests(std::ostream& out, TransportCatalogue& catalogue) {
             else {
                 out << "Bus " << route_number << ": not found\n";
             }
-        }
-        if (keyword == "Stop") {
+}
+
+void PrinttStop(std::string& line, TransportCatalogue& catalogue, std::ostream& out) {
             std::string stop_name = line.substr(1, line.npos);
             if (catalogue.FindStop(stop_name)) {
                 out << "Stop " << stop_name << ": ";
@@ -39,6 +50,4 @@ void ProcessRequests(std::ostream& out, TransportCatalogue& catalogue) {
             else {
                 out << "Stop " << stop_name << ": not found\n";
             }
-        }
-    }
 }
