@@ -1,6 +1,6 @@
 #include "transport_catalogue.h"
 
-void TransportCatalogue::AddRoute(Bus& bus) const {
+void TransportCatalogue::AddRoute(Bus& bus){
     all_buses_.push_back(bus);
     for (const auto& route_stop : bus.stops) {
         for (auto& stop_ : all_stops_) {
