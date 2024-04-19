@@ -1,6 +1,6 @@
 #include "transport_catalogue.h"
 
-void TransportCatalogue::AddRoute(Bus& bus) {
+void TransportCatalogue::AddRoute(Bus& bus) const {
     all_buses_.push_back(bus);
     for (const auto& route_stop : bus.stops) {
         for (auto& stop_ : all_stops_) {
@@ -10,7 +10,7 @@ void TransportCatalogue::AddRoute(Bus& bus) {
     busname_to_bus_[all_buses_.back().number] = &all_buses_.back();
 }
 
-void TransportCatalogue::AddStop(Stop& stop) {
+void TransportCatalogue::AddStop(Stop& stop) const{
     all_stops_.push_back(stop);
     stopname_to_stop_[all_stops_.back().name] = &all_stops_.back();
 }
