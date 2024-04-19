@@ -1,4 +1,5 @@
 #include "transport_catalogue.h"
+#include <string_view>
 
 void TransportCatalogue::AddRoute(Bus& bus){
     all_buses_.push_back(bus);
