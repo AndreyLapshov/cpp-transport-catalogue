@@ -34,8 +34,8 @@ struct RouteInfo {
 
 class TransportCatalogue {
 public:
-    void AddRoute(Bus& bus);
-    void AddStop(Stop& stop);
+    void AddRoute(Bus& bus) const;
+    void AddStop(Stop& stop) const;
     const Bus* FindRoute(const std::string& route_number) const;
     Stop* FindStop(const std::string& stop_name) const;
     const RouteInfo RouteInformation(const std::string& route_number) const;
