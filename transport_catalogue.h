@@ -2,6 +2,7 @@
 
 #include "geo.h"
 
+#include <string_view>
 #include <iostream>
 #include <deque>
 #include <string>
