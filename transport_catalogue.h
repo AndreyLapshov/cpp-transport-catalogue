@@ -39,12 +39,12 @@ public:
     const Bus* FindRoute(const std::string& route_number) const;
     Stop* FindStop(const std::string& stop_name) const;
     const RouteInfo RouteInformation(const std::string& route_number) const;
-    size_t UniqueStopsCount(const std::string& route_number) const;
     const std::set<std::string> GetBusesOnStop(const std::string& stop_name) const;
     void SetDistance(Stop* from, Stop* to, int distance);
     int GetDistance(const Stop* from, const Stop* to) const;
 
 private:
+    size_t GetUniqueStopsCount(const std::string& route_number) const;
     std::deque<Bus> all_buses_;
     std::deque<Stop> all_stops_;
     std::unordered_map<std::string_view, const Bus*> busname_to_bus_;
