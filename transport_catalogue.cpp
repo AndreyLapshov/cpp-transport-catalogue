@@ -55,14 +55,14 @@ const RouteInfo TransportCatalogue::RouteInformation(const std::string& route_nu
         geographic_length += ComputeDistance(from->coordinates, to->coordinates);
     }
 
-    route_info.unique_stops_count = UniqueStopsCount(route_number);
+    route_info.unique_stops_count = GetUniqueStopsCount(route_number);
     route_info.route_length = route_length;
     route_info.curvature = route_length / geographic_length;
 
     return route_info;
 }
 
-size_t TransportCatalogue::UniqueStopsCount(const std::string& route_number) const {
+size_t TransportCatalogue::GetUniqueStopsCount(const std::string& route_number) const {
     std::unordered_set<std::string> unique_stops;
     for (const auto& stop : busname_to_bus_.at(route_number)->stops) {
         unique_stops.insert(stop);
