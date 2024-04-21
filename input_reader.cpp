@@ -75,7 +75,6 @@ Stop FillStop(std::string& line) {
 
     stop.name = stop_name;
     stop.coordinates = stop_coordinates;
-    stop.buses = {};
 
     return stop;
 }
@@ -94,18 +93,14 @@ void AddStopDistances(std::string& line, TransportCatalogue& catalogue) {
                 stop_to_name = line.substr(0, line.npos - 1);
                 Stop* to = catalogue.FindStop(stop_to_name);
                 catalogue.SetDistance(from, to, distanse);
-                if (!catalogue.FindStop(to->name)->stop_distances.count(from->name)) {
-                    catalogue.SetDistance(to, from, distanse);
-                }
+                if (!catalogue.GetDistance(to, from)) catalogue.SetDistance(to, from, distanse);
                 line.clear();
             }
             else {
                 stop_to_name = line.substr(0, line.find_first_of(','));
                 Stop* to = catalogue.FindStop(stop_to_name);
                 catalogue.SetDistance(from, to, distanse);
-                if (!catalogue.FindStop(to->name)->stop_distances.count(from->name)) {
-                    catalogue.SetDistance(to, from, distanse);
-                }
+                if (!catalogue.GetDistance(to, from)) catalogue.SetDistance(to, from, distanse);
                 line.erase(0, line.find_first_of(',') + 2);
             }
         }

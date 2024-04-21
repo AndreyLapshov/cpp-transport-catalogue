@@ -35,10 +35,14 @@ void PrintStop(std::string& line, TransportCatalogue& catalogue) {
     std::string stop_name = line.substr(1, line.npos);
     if (catalogue.FindStop(stop_name)) {
         std::cout << "Stop " << stop_name << ": ";
-        std::set<std::string> buses = catalogue.GetBusesOnStop(stop_name);
+        const std::unordered_set<const Bus*> buses = catalogue.GetBusesOnStop(stop_name);
         if (!buses.empty()) {
             std::cout << "buses ";
+            std::set<std::string> sorted_buses_list;
             for (const auto& bus : buses) {
+                sorted_buses_list.insert(bus->number);
+            }
+            for (const auto& bus : sorted_buses_list) {
                 std::cout << bus << " ";
             }
             std::cout << "\n";
