@@ -5,14 +5,12 @@
 
 #include <iostream>
 #include <deque>
-#include <string>
 #include <unordered_map>
 #include <vector>
 #include <stdexcept>
 #include <optional>
 #include <unordered_set>
 #include <set>
-#include <map>
 
 namespace transport {
 
@@ -27,7 +25,7 @@ public:
     };
 
     void AddStop(std::string_view stop_name, const geo::Coordinates coordinates);
-    void AddRoute(std::string_view bus_number, const std::vector<const Stop*> stops, bool is_circle);
+    void AddRoute(std::string_view bus_number, const std::vector<const Stop*>& stops, bool is_circle);
     const Bus* FindRoute(std::string_view bus_number) const;
     const Stop* FindStop(std::string_view stop_name) const;
     const std::unordered_set<const Bus*> GetBusesOnStop(const std::string_view stop_name) const;

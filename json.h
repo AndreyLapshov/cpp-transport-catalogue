@@ -21,17 +21,13 @@ public:
     using runtime_error::runtime_error;
 };
 
-class Node {
+class Node : private std::variant<std::nullptr_t, std::string, int, double, bool, Array, Dict> {
 public:
-    using Value = std::variant<std::nullptr_t, std::string, int, double, bool, Array, Dict>;
+    using variant::variant;
+    using Value = variant;
 
-    template<typename ValueType>
-    Node(ValueType value)
-        : value_(value)
-    {}
-    
-    Node()
-        : value_(nullptr)
+    Node(Value value)
+        : variant(std::move(value))
     {}
 
     bool IsInt() const;
@@ -54,9 +50,6 @@ public:
 
     bool operator==(const Node& rhs) const;
     bool operator!=(const Node& rhs) const;
-
-private:
-    Value value_;
 };
 
 class Document {
