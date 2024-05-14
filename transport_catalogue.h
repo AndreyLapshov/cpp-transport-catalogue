@@ -5,12 +5,14 @@
 
 #include <iostream>
 #include <deque>
+#include <string>
 #include <unordered_map>
 #include <vector>
 #include <stdexcept>
 #include <optional>
 #include <unordered_set>
 #include <set>
+#include <map>
 
 namespace transport {
 
@@ -25,13 +27,12 @@ public:
     };
 
     void AddStop(std::string_view stop_name, const geo::Coordinates coordinates);
-    void AddRoute(std::string_view bus_number, const std::vector<const Stop*>& stops, bool is_circle);
+    void AddRoute(std::string_view bus_number, const std::vector<const Stop*> stops, bool is_circle);
     const Bus* FindRoute(std::string_view bus_number) const;
     const Stop* FindStop(std::string_view stop_name) const;
-    const std::unordered_set<const Bus*> GetBusesOnStop(const std::string_view stop_name) const;
+    size_t UniqueStopsCount(std::string_view bus_number) const;
     void SetDistance(const Stop* from, const Stop* to, const int distance);
     int GetDistance(const Stop* from, const Stop* to) const;
-    size_t GetUniqueStops(const std::string_view route_number) const;
     const std::map<std::string_view, const Bus*> GetSortedAllBuses() const;
 
 private:
@@ -39,10 +40,7 @@ private:
     std::deque<Stop> all_stops_;
     std::unordered_map<std::string_view, const Bus*> busname_to_bus_;
     std::unordered_map<std::string_view, const Stop*> stopname_to_stop_;
-    std::unordered_map<const Stop*, std::unordered_set<const Bus*>> buses_by_stop_;
     std::unordered_map<std::pair<const Stop*, const Stop*>, int, StopDistancesHasher> stop_distances_;
-
-    size_t CountUniqueStops(const std::string_view route_number) const;
 };
 
 } // namespace transport

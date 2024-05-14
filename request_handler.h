@@ -11,10 +11,11 @@ public:
     RequestHandler(const transport::Catalogue& catalogue, const renderer::MapRenderer& renderer)
         : catalogue_(catalogue)
         , renderer_(renderer)
-    {}
+    {
+    }
 
-    std::optional<transport::RouteInfo> GetRouteInfo(const std::string_view bus_number) const;
-    const std::unordered_set<const transport::Bus*> GetBusesOnStop(const std::string_view stop_name) const;
+    std::optional<transport::BusStat> GetBusStat(const std::string_view bus_number) const;
+    const std::set<std::string> GetBusesByStop(std::string_view stop_name) const;
     bool IsBusNumber(const std::string_view bus_number) const;
     bool IsStopName(const std::string_view stop_name) const;
 

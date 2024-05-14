@@ -18,7 +18,7 @@ std::vector<svg::Polyline> MapRenderer::GetRouteLines(const std::map<std::string
     for (const auto& [bus_number, bus] : buses) {
         if (bus->stops.empty()) continue;
         std::vector<const transport::Stop*> route_stops{ bus->stops.begin(), bus->stops.end() };
-        if (bus->is_roundtrip == false) route_stops.insert(route_stops.end(), std::next(bus->stops.rbegin()), bus->stops.rend());
+        if (bus->is_circle == false) route_stops.insert(route_stops.end(), std::next(bus->stops.rbegin()), bus->stops.rend());
         svg::Polyline line;
         for (const auto& stop : route_stops) {
             line.AddPoint(sp(stop->coordinates));
@@ -70,7 +70,7 @@ std::vector<svg::Text> MapRenderer::GetBusLabel(const std::map<std::string_view,
         result.push_back(underlayer);
         result.push_back(text);
         
-        if (bus->is_roundtrip == false && bus->stops[0] != bus->stops[bus->stops.size() - 1]) {
+        if (bus->is_circle == false && bus->stops[0] != bus->stops[bus->stops.size() - 1]) {
             svg::Text text2 {text};
             svg::Text underlayer2 {underlayer};
             text2.SetPosition(sp(bus->stops[bus->stops.size() - 1]->coordinates));

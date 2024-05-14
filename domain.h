@@ -15,10 +15,8 @@
 #include "geo.h"
 
 #include <string>
-#include <string_view>
 #include <vector>
 #include <set>
-#include <map>
 #include <unordered_map>
 
 namespace transport {
@@ -26,31 +24,20 @@ namespace transport {
 struct Stop {
     std::string name;
     geo::Coordinates coordinates;
+    std::set<std::string> buses_by_stop;
 };
 
 struct Bus {
     std::string number;
     std::vector<const Stop*> stops;
-    bool is_roundtrip;
+    bool is_circle;
 };
 
-struct RouteInfo {
+struct BusStat {
     size_t stops_count;
     size_t unique_stops_count;
     double route_length;
     double curvature;
-};
-
-struct FillStopData {
-    std::string_view stop_name;
-    geo::Coordinates coordinates{};
-    std::map<std::string_view, int> stop_distances;
-};
-
-struct FillRouteData {
-    std::string_view bus_number;
-    std::vector<const transport::Stop*> stops;
-    bool is_roundtrip;
 };
 
 } // namespace transport
