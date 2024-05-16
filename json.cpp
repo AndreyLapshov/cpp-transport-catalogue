@@ -5,7 +5,6 @@
 namespace json {
 
 namespace {
-
 using namespace std::literals;
 
 Node LoadNode(std::istream& input);
@@ -142,7 +141,7 @@ Node LoadNumber(std::istream& input) {
         if (!input) {
             throw ParsingError("Failed to read number from stream"s);
         }
-    };
+        };
 
     // Считывает одну или более цифр в parsed_num из input
     auto read_digits = [&input, read_char] {
@@ -152,7 +151,7 @@ Node LoadNumber(std::istream& input) {
         while (std::isdigit(input.peek())) {
             read_char();
         }
-    };
+        };
 
     if (input.peek() == '-') {
         read_char();
@@ -267,6 +266,9 @@ void PrintString(const std::string& value, std::ostream& out) {
         case '\n':
             out << "\\n"sv;
             break;
+        case '\t':
+            out << "\\t"sv;
+            break;
         case '"':
             // Символы " и \ выводятся как \" или \\, соответственно
             [[fallthrough]];
@@ -291,7 +293,7 @@ void PrintValue<std::nullptr_t>(const std::nullptr_t&, const PrintContext& ctx) 
     ctx.out << "null"sv;
 }
 
-// В специализаци шаблона PrintValue для типа bool параметр value передаётся
+// В специализации шаблона PrintValue для типа bool параметр value передаётся
 // по константной ссылке, как и в основном шаблоне.
 // В качестве альтернативы можно использовать перегрузку:
 // void PrintValue(bool value, const PrintContext& ctx);
